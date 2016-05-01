@@ -1,0 +1,30 @@
+{
+  "name": "jarvis",
+  "description": "Electron voice assistant",
+  "main": "dist/app.js",
+  "authors": [
+    "michael.dovzhenko@gmail.com"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "Electron",
+    "Voice",
+    "Assistant"
+  ],
+  "moduleType": [
+    "es6"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.3",
+    "angular": "^1.5.5",
+    "angular-ui-router": "^0.2.18"
+  }
+}

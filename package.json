@@ -1,0 +1,43 @@
+{
+  "name": "jarvis",
+  "version": "1.0.0",
+  "description": "Electron voice assistant",
+  "main": "dist/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "built": "babel src -d dist"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://Avizura@bitbucket.org/Avizura/speach-app.git"
+  },
+  "keywords": [
+    "Electron",
+    "Voice",
+    "Assistant"
+  ],
+  "author": "michael.dovzhenko@gmail.com",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/Avizura/speach-app#readme",
+  "devDependencies": {
+    "babel-cli": "^6.7.7",
+    "electron-prebuilt": "^0.37.7",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-run-electron": "^1.2.2",
+    "gulp-sequence": "^0.4.5"
+  },
+  "dependencies": {
+    "brain": "^0.7.0",
+    "diskdb": "^0.1.14",
+    "natural": "^0.4.0",
+    "natural-brain": "^0.2.0",
+    "pos": "^0.3.0"
+  }
+}
