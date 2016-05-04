@@ -1,9 +1,10 @@
+import path from 'path';
 import remote from 'remote';
 const Menu = remote.require('menu');
-import path from 'path';
-import Jarvis from './jarvis.js';
+import {ipcRenderer} from 'electron';
+// import Jarvis from './jarvis.js';
 
-const jarvis = window.jarvis = new Jarvis();
+// const jarvis = window.jarvis = new Jarvis();
 
 // $('body').on('submit', 'form', function (ev) {
 //   ev.preventDefault();
@@ -17,7 +18,7 @@ const jarvis = window.jarvis = new Jarvis();
 //   element.find('form').submit();
 // });
 
-var template = [
+let template = [
   {
     label: 'Electron',
     submenu: [
@@ -29,7 +30,10 @@ var template = [
         type: 'separator'
       },
       {
-        label: 'Preferences...'
+        label: 'Preferences...',
+        click: () => {
+          ipcRenderer.send('show-prefs');
+        }
       },
       {
         label: 'Services',

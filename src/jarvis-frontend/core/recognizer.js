@@ -1,10 +1,12 @@
+import Bus from './jarvis-frontend/core/bus.js';
+
 const SpeechRecognition = window.SpeechRecognition ||
   window.webkitSpeechRecognition ||
   window.mozSpeechRecognition ||
   window.msSpeechRecognition ||
   window.oSpeechRecognition;
 
-export default class Recognizer {
+class Recognizer {
   constructor() {
     this.listening = false;
     this.transcript = '';
@@ -19,6 +21,11 @@ export default class Recognizer {
       if(transcripts.isFinal) {
         this.transcript = transcripts[0].transcript;
         this.stop();
+        console.log('Trascript');
+        Bus.publish({
+          name: 'transcript',
+          value: this.transcript
+        });
       }
     }
   }
@@ -29,14 +36,23 @@ export default class Recognizer {
 
   start() {
     this.listening = true;
+    console.log('Started!');
     this.recognition.start();
   }
 
   onEnd() {
+    console.log('onEnd');
     this.listening = false;
+    Bus.publish({
+        name: 'recognitionOf'
+    });
   }
 
   stop() {
+    console.log('stopped!');
     this.recognition.stop();
   }
 }
+
+angular.module('Jarvis')
+  .service('Recognizer', () => new Recognizer());

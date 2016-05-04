@@ -1,22 +1,25 @@
 angular.module('Jarvis')
     .config(($stateProvider, $urlRouterProvider, $locationProvider) => {
-            $locationProvider.html5Mode(false);
             $urlRouterProvider.otherwise('/');
-            // Now set up the states
+
             $stateProvider
                 .state('main', {
                     url: '/',
-                    // templateUrl: ''
-                    // controller: 'mainCtrl'
+                    templateUrl: './jarvis-frontend/core/main.html',
+                    controller: 'mainCtrl as ctrl'
                 })
                 .state('main.hi', {
-                    url: '/action/hi',
-                    templateUrl: 'jarvis-frontend/sayHi/hi.html',
-                    controller: 'hiCtrl'
+                    templateUrl: './jarvis-frontend/modules/sayHi/hi.html',
+                    controller: 'hiCtrl',
+                    params: {
+                      extracted: {}
+                    }
                 })
                 .state('main.replay', {
-                    url: '/action/replay',
-                    templateUrl: './ajarvis-frontend/replay/replay.html',
-                    controller: 'replayCtrl'
+                    templateUrl: './jarvis-frontend/modules/replay/replay.html',
+                    controller: 'replayCtrl',
+                    params: {
+                      extracted: {}
+                    }
                 });
         });

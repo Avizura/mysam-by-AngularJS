@@ -1,14 +1,13 @@
 'use strict';
-
-const {app, BrowserWindow} = require('electron');
-
-// const brain = require('brain');
+import ipc from 'ipc';
+import {app, BrowserWindow, ipcMain} from 'electron';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
+let mainWindow, prefsWindow;
+let windows = [mainWindow, prefsWindow];
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 1200, height: 800});
 
@@ -19,22 +18,12 @@ function createWindow () {
   mainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.
-  mainWindow.on('closed', function() {
+  mainWindow.on('closed', () => {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    mainWindow = null;
+    windows.forEach((window) => window = null);
   });
-
-  // var net = new brain.NeuralNetwork();
-  //
-  // net.train([{input: [0, 0], output: [0]},
-  //            {input: [0, 1], output: [1]},
-  //            {input: [1, 0], output: [1]},
-  //            {input: [1, 1], output: [0]}]);
-  //
-  // var output = net.run([1, 0]);
-  // console.log(`output: ${output}`);
 }
 
 // This method will be called when Electron has finished
@@ -56,4 +45,17 @@ app.on('activate', function () {
   if (mainWindow === null) {
     createWindow();
   }
+});
+
+ipcMain.on('show-prefs', () => {
+  prefsWindow = new BrowserWindow({
+    width: 800,
+    height: 600
+  });
+
+  prefsWindow.loadURL(`file://${__dirname}/preferences.html`);
+
+  prefsWindow.on('closed', () => {
+    prefsWindow = null;
+  })
 });

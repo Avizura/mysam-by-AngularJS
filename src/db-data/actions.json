@@ -1,0 +1,4 @@
+[
+{"text":"hi my name is David","tags":[{"label":"name","start":4,"end":-1}], "type":"namer", "_id":"352a448791b54ed8af5a30fc868bc0b1"},
+{"text":"What is the weather in Sevastopol","tags":[{"label":"name","start":4,"end":-1}], "type":"weather", "_id":"34eb619be89c4f7d8db327c7115f8d14"}
+]
