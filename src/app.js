@@ -53,7 +53,8 @@ ipcMain.on('show-prefs', () => {
     height: 600
   });
 
-  prefsWindow.loadURL(`file://${__dirname}/preferences.html`);
+  prefsWindow.loadURL(`file://${__dirname}/jarvis-frontend/preferences/preferences.html`);
+  prefsWindow.webContents.openDevTools();
 
   prefsWindow.on('closed', () => {
     prefsWindow = null;

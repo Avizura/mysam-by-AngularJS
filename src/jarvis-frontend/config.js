@@ -21,5 +21,9 @@ angular.module('Jarvis')
                     params: {
                       extracted: {}
                     }
+                })
+                .state('preferences', {
+                    template: '<div>AHAHAHHAHAHAHAH</div>',
+                    controller: 'preferencesCtrl as prefs'
                 });
         });
