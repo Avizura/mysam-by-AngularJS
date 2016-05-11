@@ -4,6 +4,7 @@ import path from 'path';
 
 class Classifier {
   constructor(Extractor) {
+    this.threshold = 0.3;
     this.Extractor = Extractor;
     this.classifier = new natural.BayesClassifier();
     this.tokenizer = new natural.WordTokenizer();
@@ -12,19 +13,32 @@ class Classifier {
 
   classify(input) {
     console.log(input);
-    let actionType = this.classifier.classify(input);
-    console.log('class: ', actionType);
-    let action = db.actions.find({type: actionType});
-    console.log(action);
-    let exampleWords = this.tokenizer.tokenize(action[0].text);
-    let inputWords = this.tokenizer.tokenize(input);
-    console.log(inputWords);
-    let extracted = this.Extractor.extract(exampleWords, action[0].tags, inputWords);
-    console.log(extracted);
+    let classifications = this.classifier.getClassifications(input);
+    let actionType, extracted;
+    if(this.isRecognized(classifications)) {
+      console.log('Classifications: ', classifications);
+      actionType = classifications[0].label;
+      console.log('class: ', actionType);
+      let action = db.actions.find({type: actionType});
+      console.log(action);
+      let exampleWords = this.tokenizer.tokenize(action[0].text);
+      let inputWords = this.tokenizer.tokenize(input);
+      console.log(inputWords);
+      extracted = this.Extractor.extract(exampleWords, action[0].tags, inputWords);
+      console.log(extracted);
+    } else {
+      actionType = 'learn';
+    }
     return {
       actionType,
       extracted
     }
+  }
+
+  isRecognized(classifications) {
+      if(classifications[0].value > this.threshold && classifications[0].value > classifications[1].value)
+          return true;
+      return false;
   }
 
   add(action) {
@@ -39,4 +53,4 @@ class Classifier {
 }
 
 angular.module('Jarvis')
-  .service('Classifier', (Extractor) => new Classifier(Extractor));
+  .service('Classifier', Classifier);

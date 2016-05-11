@@ -1,18 +1,1 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Preferences</title>
-  </head>
-  <body ng-app="Jarvis">
-    <a ui-sref="preferences">Replay</a>
-    <div ng-controller="preferencesCtrl as prefs">
-      <div ng-repeat="item in prefs.plugins" ng-click="prefs.loadPackage(item)">{{item.key[1]}}</div>
-    </div>
-    <script src="../../../bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="../../../bower_components/angular/angular.min.js"></script>
-    <script src="../../../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="../jarvis.js"></script>
-    <script src="./preferencesCtrl.js"></script>
-  </body>
-</html>
+<div ng-repeat="plugin in prefs.plugins" ng-click="prefs.installModule(plugin)">{{plugin.key[1]}} {{plugin.isInstalled}} {{plugin.key[2]}}</div>

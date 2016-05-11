@@ -62,4 +62,4 @@ class Extractor {
 }
 
 angular.module('Jarvis')
-    .service('Extractor', () => new Extractor());
+    .service('Extractor', Extractor);

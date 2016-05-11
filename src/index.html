@@ -8,8 +8,10 @@
     <h1 id="output">Hi, I'm Jarvis. What's your name?</h1>
     <button id="start">Start Recognition</button>
     <a ui-sref="main.hi">Hi</a>
-    <a ui-sref="main.replay">Replay</a>
+    <a ui-sref="main.repeat">Repeat</a>
     <a ui-sref="preferences">Prefs</a>
+    <a ui-sref="main.jarvis-weather">Weather</a>
+    <a ui-sref="main.learn({input: 'I am smary man!'})">Learn</a>
     <div ui-view></div>
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
@@ -36,17 +38,20 @@
         SpeechKITT.vroom(); // SpeechKITT.render() does the same thing, but isn't as much fun!
     </script>
 
-    <script>require('./jarvis-frontend/menu.js')</script>
+    <!-- <script>require('./jarvis-frontend/menu.js')</script> -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="./jarvis-frontend/jarvis.js"></script>
+    <script src="./jarvis-frontend/loadPlugins.js"></script>
     <script src="./jarvis-frontend/core/recognizer.js"></script>
     <script src="./jarvis-frontend/core/extractor.js"></script>
     <script src="./jarvis-frontend/core/classifier.js"></script>
     <script src="./jarvis-frontend/core/mainCtrl.js"></script>
     <script src="./jarvis-frontend/modules/sayHi/hiCtrl.js"></script>
-    <script src="./jarvis-frontend/modules/replay/replayCtrl.js"></script>
+    <script src="./jarvis-frontend/modules/repeat/repeatCtrl.js"></script>
+    <script src="./jarvis-frontend/modules/learn/learnCtrl.js"></script>
+    <script src="./jarvis-frontend/modules/learn/learnDirective.js"></script>
     <script src="./jarvis-frontend/preferences/preferencesCtrl.js"></script>
     <script src="./jarvis-frontend/config.js"></script>
     <script src="./jarvis-frontend/core/keyboardEvents.js"></script>

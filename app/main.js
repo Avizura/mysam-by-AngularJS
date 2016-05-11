@@ -6,6 +6,8 @@ const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 
+const brain = require('brain');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -27,6 +29,16 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
+
+  var net = new brain.NeuralNetwork();
+
+  net.train([{input: [0, 0], output: [0]},
+             {input: [0, 1], output: [1]},
+             {input: [1, 0], output: [1]},
+             {input: [1, 1], output: [0]}]);
+
+  var output = net.run([1, 0]);
+  console.log(`output: ${output}`);
 }
 
 // This method will be called when Electron has finished

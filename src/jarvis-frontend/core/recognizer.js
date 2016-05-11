@@ -55,4 +55,4 @@ class Recognizer {
 }
 
 angular.module('Jarvis')
-  .service('Recognizer', () => new Recognizer());
+  .service('Recognizer', Recognizer);

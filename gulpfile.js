@@ -20,6 +20,12 @@ gulp.task('js', function() {
     .pipe(gulp.dest("dist"));
 });
 
+gulp.task('jsx', function() {
+  return gulp.src("node_modules/dist/*.js")
+    .pipe(babel())
+    .pipe(gulp.dest("node_modules/jarvis-weather"));
+});
+
 gulp.task('run', function() {
   return gulp.src("")
     .pipe(runElectron());
