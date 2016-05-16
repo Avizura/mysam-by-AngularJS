@@ -1,1 +1,1 @@
-angular.module('Jarvis', ['ui.router']);
+angular.module('Jarvis', ['ui.router', 'uiRouterStyles']);

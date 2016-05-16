@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <title>Jarvis</title>
   </head>
-  <body ng-app="Jarvis" keyboard-events>
+  <body ng-app="Jarvis" ui-router-styles keyboard-events>
     <h1 id="output">Hi, I'm Jarvis. What's your name?</h1>
     <button id="start">Start Recognition</button>
     <a ui-sref="main.hi">Hi</a>
     <a ui-sref="main.repeat">Repeat</a>
+    <a ui-sref="main.help">Help</a>
     <a ui-sref="preferences">Prefs</a>
-    <a ui-sref="main.jarvis-weather">Weather</a>
-    <a ui-sref="main.learn({input: 'I am smary man!'})">Learn</a>
+    <a ui-sref="main.weather">Weather</a>
+    <a ui-sref="main.learn({input: 'I am smart man!'})">Learn</a>
     <div ui-view></div>
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
@@ -42,6 +43,7 @@
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="../bower_components/angular-ui-router-styles/ui-router-styles.js"></script>
     <script src="./jarvis-frontend/jarvis.js"></script>
     <script src="./jarvis-frontend/loadPlugins.js"></script>
     <script src="./jarvis-frontend/core/recognizer.js"></script>
@@ -50,6 +52,7 @@
     <script src="./jarvis-frontend/core/mainCtrl.js"></script>
     <script src="./jarvis-frontend/modules/sayHi/hiCtrl.js"></script>
     <script src="./jarvis-frontend/modules/repeat/repeatCtrl.js"></script>
+    <script src="./jarvis-frontend/modules/help/helpCtrl.js"></script>
     <script src="./jarvis-frontend/modules/learn/learnCtrl.js"></script>
     <script src="./jarvis-frontend/modules/learn/learnDirective.js"></script>
     <script src="./jarvis-frontend/preferences/preferencesCtrl.js"></script>

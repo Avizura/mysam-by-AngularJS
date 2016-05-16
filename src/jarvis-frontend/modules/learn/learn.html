@@ -1,4 +1,9 @@
 <h1>I'm not sure what you want me to do?</h1>
-<h3 ng-bind="input"></h3>
-<learn-directive>
-<input type="text">
+<div>
+  <span ng-repeat="item in ctrl.data" ng-click="ctrl.select(item)" ng-class="{selected: item.selected}">
+    {{item.word}}
+  </span>
+</div>
+<div>
+  <span class="tag">location</span>
+</div>

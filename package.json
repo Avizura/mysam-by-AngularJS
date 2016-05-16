@@ -37,6 +37,7 @@
   "dependencies": {
     "brain": "^0.7.0",
     "diskdb": "^0.1.14",
+    "jarvis-test-plugin": "^1.0.0",
     "jarvis-weather": "^1.0.1",
     "lodash": "^4.11.2",
     "mysam-space": "0.0.19",

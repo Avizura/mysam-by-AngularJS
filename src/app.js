@@ -1,11 +1,11 @@
 'use strict';
 import ipc from 'ipc';
-import {app, BrowserWindow, ipcMain} from 'electron';
+import {app, BrowserWindow} from 'electron';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow, prefsWindow;
-let windows = [mainWindow, prefsWindow];
+let mainWindow;
+let windows = [mainWindow];
 
 function createWindow() {
   // Create the browser window.
@@ -45,18 +45,4 @@ app.on('activate', function () {
   if (mainWindow === null) {
     createWindow();
   }
-});
-
-ipcMain.on('show-prefs', () => {
-  prefsWindow = new BrowserWindow({
-    width: 800,
-    height: 600
-  });
-
-  prefsWindow.loadURL(`file://${__dirname}/jarvis-frontend/preferences/preferences.html`);
-  prefsWindow.webContents.openDevTools();
-
-  prefsWindow.on('closed', () => {
-    prefsWindow = null;
-  })
 });

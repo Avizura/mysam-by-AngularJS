@@ -43,9 +43,9 @@ class Recognizer {
   onEnd() {
     console.log('onEnd');
     this.listening = false;
-    Bus.publish({
-        name: 'recognitionOf'
-    });
+    // Bus.publish({
+    //     name: 'recognitionOf'
+    // });
   }
 
   stop() {
