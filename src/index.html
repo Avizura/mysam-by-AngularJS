@@ -3,16 +3,15 @@
   <head>
     <meta charset="UTF-8">
     <title>Jarvis</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
   </head>
   <body ng-app="Jarvis" ui-router-styles keyboard-events>
-    <h1 id="output">Hi, I'm Jarvis. What's your name?</h1>
-    <button id="start">Start Recognition</button>
     <a ui-sref="main.hi">Hi</a>
     <a ui-sref="main.repeat">Repeat</a>
     <a ui-sref="main.help">Help</a>
     <a ui-sref="preferences">Prefs</a>
     <a ui-sref="main.weather">Weather</a>
-    <a ui-sref="main.learn({input: 'I am smart man!'})">Learn</a>
+    <a ui-sref="main.learn({extracted: 'What is the weather like in London'})">Learn</a>
     <div ui-view></div>
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
@@ -44,6 +43,10 @@
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="../bower_components/angular-ui-router-styles/ui-router-styles.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../bower_components/angular-strap/dist/angular-strap.min.js"></script>
+    <script src="../bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
     <script src="./jarvis-frontend/jarvis.js"></script>
     <script src="./jarvis-frontend/loadPlugins.js"></script>
     <script src="./jarvis-frontend/core/recognizer.js"></script>

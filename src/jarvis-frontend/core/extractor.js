@@ -12,20 +12,23 @@ class Extractor {
             do {
                 let startIndex = currentMatch ? currentMatch.start : 0;
                 currentMatch = this._match(exampleWords, tag, words, startIndex);
-
+                
                 if (currentMatch.tag !== null && currentMatch.matches > 1) {
                     matches.push(currentMatch);
                 }
             } while (currentMatch.start > 0);
 
-            let bestMatch = _.max(matches, function(match) {
-                return match.matches;
-            });
+            if(matches.length) {
+              let bestMatch = _.max(matches, (match) => {
+                  return match.matches;
+              });
 
-            result[tag.label] = matches.length ? bestMatch.tag : null;
+              result[tag.label] = bestMatch.tag;
+            }
         });
 
-        return result;
+        if(Object.keys(result).length)
+            return result;
     }
 
     _match(exampleWords, tag, words, startIndex) {
@@ -54,7 +57,7 @@ class Extractor {
             start + (tag.start - tag.end);
 
         return {
-            tag: words.slice(start, endIndex + 1),
+            tag: words.slice(start, endIndex + 1).join(' '),
             start,
             matches
         };

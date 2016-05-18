@@ -59,6 +59,7 @@ angular.module('Jarvis')
                 off();
                 Classifier.addPluginsActions();
                 Classifier.addDescriptions();
+                // Classifier.classify('What is the weather  in London');
                 $state.go(toState.name, toParams);
             });
         });

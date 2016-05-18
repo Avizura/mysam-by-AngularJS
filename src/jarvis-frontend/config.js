@@ -12,7 +12,7 @@ class Config {
           .state('main', {
               url: '/',
               templateUrl: './jarvis-frontend/core/main.html',
-              controller: 'mainCtrl as ctrl'
+              controller: 'mainCtrl as main'
           })
           .state('main.hi', {
               templateUrl: './jarvis-frontend/modules/sayHi/hi.html',

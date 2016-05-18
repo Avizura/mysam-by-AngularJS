@@ -1,9 +1,8 @@
 class Repeat {
-    constructor($scope, Classifier) {
-        console.log(Classifier);
-        console.log($scope.Classifier);
+    constructor($stateParams) {
+        this.output = $stateParams.extracted.subject;
     }
 }
 
 angular.module('Jarvis')
-    .controller('repeatCtrl', ($scope, Classifier) => new Repeat($scope, Classifier));
+    .controller('repeatCtrl', Repeat);

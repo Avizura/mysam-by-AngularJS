@@ -1,1 +1,1 @@
-angular.module('Jarvis', ['ui.router', 'uiRouterStyles']);
+angular.module('Jarvis', ['ui.router', 'uiRouterStyles', 'mgcrea.ngStrap']);

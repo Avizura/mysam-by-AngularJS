@@ -4,6 +4,9 @@
     {{item.word}}
   </span>
 </div>
-<div>
-  <span class="tag">location</span>
+<button type="button" class="btn btn-default" ng-model="ctrl.selectedAction" data-toggle="true" bs-options="action as action.description for action in ctrl.actions" bs-select>
+  <span class="caret"></span>
+</button>
+<div class="tag" ng-repeat="tag in ctrl.selectedAction.tags">{{tag}}</div>
 </div>
+<button ng-click="ctrl.onClick()">Click</button>

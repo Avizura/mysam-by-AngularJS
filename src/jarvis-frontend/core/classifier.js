@@ -30,20 +30,23 @@ function ClassifierProvider() {
     }
 
     classify(input) {
+      console.log(this.classifier);
       console.log(input);
       let classifications = this.classifier.getClassifications(input);
       console.log('Classifications: ', classifications);
-      let actionType, extracted;
+      let actionType;
+      let extracted = [];
+      let inputWords = this.tokenizer.tokenize(input);
+
       if(this.isRecognized(classifications)) {
         actionType = classifications[0].label;
         console.log('class: ', actionType);
-        // let action = db.actions.find({type: actionType});
-        let action = this.actions.filter((action) => action.type == actionType);
-        console.log(action);
-        let exampleWords = this.tokenizer.tokenize(action[0].text);
-        let inputWords = this.tokenizer.tokenize(input);
-        console.log(inputWords);
-        extracted = this.Extractor.extract(exampleWords, action[0].tags, inputWords);
+        let actions = this.actions.filter((action) => action.type == actionType);
+        actions.forEach((action) => {
+            let exampleWords = this.tokenizer.tokenize(action.text);
+            extracted.push(this.Extractor.extract(exampleWords, action.tags, inputWords));
+        })
+        extracted = extracted.filter(item => !!item)[0];
         console.log(extracted);
       } else {
         actionType = 'learn';
@@ -65,7 +68,7 @@ function ClassifierProvider() {
       console.log('ACTIONS', pluginActions);
       this.actions = this.actions.concat(pluginActions);
       console.log('HEREEEE222', this.actions);
-      this.actions.forEach(this.add.bind(this));
+      this.actions.forEach(action => this.classifier.addDocument(action.text, action.type));
       this.classifier.train();
     }
 
@@ -73,8 +76,10 @@ function ClassifierProvider() {
       this.descriptions = this.descriptions.concat(actionDescriptions);
     }
 
-    add(action) {
+    trainClassifier(action) {
+      this.actions.push(action);
       this.classifier.addDocument(action.text, action.type);
+      this.classifier.train();
     }
 
     setup() {
