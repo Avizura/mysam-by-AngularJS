@@ -8,9 +8,9 @@ class Jarvis {
         this.$state = $state;
         this.Recognizer = Recognizer;
         this.Recognizer.recognition.onend = () => {
-          this.recognition = false;
-          $scope.$apply();
-          console.log("ONEND");
+            this.recognition = false;
+            $scope.$apply();
+            console.log("ONEND");
         };
         this.Classifier = Classifier;
         this.recognition = false;
@@ -20,15 +20,17 @@ class Jarvis {
     }
 
     runAction(input) {
-      let classification = this.Classifier.classify(input);
-      let actionType = classification.actionType;
-      let extracted = classification.extracted;
-      console.log(actionType);
-      try {
-          this.$state.go(`main.${actionType}`, {extracted});
-      } catch (e) {
-          console.log(e);
-      }
+        let classification = this.Classifier.classify(input);
+        let actionType = classification.actionType;
+        let extracted = classification.extracted;
+        console.log(actionType);
+        try {
+            this.$state.go(`main.${actionType}`, {
+                extracted
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     toggle() {

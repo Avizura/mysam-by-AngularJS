@@ -3,10 +3,11 @@
   <span ng-repeat="item in ctrl.data" ng-click="ctrl.select(item)" ng-class="{selected: item.selected}">
     {{item.word}}
   </span>
+  <span ng-click="ctrl.selectEnd()">!!!</span>
 </div>
 <button type="button" class="btn btn-default" ng-model="ctrl.selectedAction" data-toggle="true" bs-options="action as action.description for action in ctrl.actions" bs-select>
   <span class="caret"></span>
 </button>
 <div class="tag" ng-repeat="tag in ctrl.selectedAction.tags">{{tag}}</div>
 </div>
-<button ng-click="ctrl.onClick()">Click</button>
+<button ng-click="ctrl.learn()">Click</button>

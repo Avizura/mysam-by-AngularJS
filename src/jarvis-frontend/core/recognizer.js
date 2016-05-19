@@ -21,7 +21,6 @@ class Recognizer {
       if(transcripts.isFinal) {
         this.transcript = transcripts[0].transcript;
         this.stop();
-        console.log('Trascript');
         Bus.publish({
           name: 'transcript',
           value: this.transcript

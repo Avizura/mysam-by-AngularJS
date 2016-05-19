@@ -31,8 +31,8 @@ jarvis.recognizer.toggle
 
 
 multilanguage
-help
-learn
+лоадер
 
-сделать директиву learn
-сделать работу extractor для массива тагов
+learn -> select with multiple tags
+при каждом экшене сделать кнопку "Неверно!"
+серверное приложение
