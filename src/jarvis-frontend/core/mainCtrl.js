@@ -28,6 +28,7 @@ class Jarvis {
             this.$state.go(`main.${actionType}`, {
                 extracted
             });
+            console.log("INTERESTING");
         } catch (e) {
             console.log(e);
         }
