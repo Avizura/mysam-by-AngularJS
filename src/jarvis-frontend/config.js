@@ -32,6 +32,9 @@ class Config {
               templateUrl: './jarvis-frontend/modules/help/help.html',
               controller: 'helpCtrl as ctrl'
           })
+          .state('main.youtube', {
+              controller: 'youtubeCtrl as ctrl'
+          })
           .state('main.learn', {
               templateUrl: './jarvis-frontend/modules/learn/learn.html',
               controller: 'learnCtrl as ctrl',

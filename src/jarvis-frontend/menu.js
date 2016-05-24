@@ -1,3 +1,13 @@
+// var open = require('open');
+//
+// // open('http://www.vk.com');
+//
+// //or
+//
+// open('https://www.youtube.com/results?search_query=wowcircle+howtoenchance', function (err) {
+//   if (err) throw err;
+//   console.log('The user closed the browser');
+// });
 import natural from 'natural';
 // import brain from 'brain';
 //
