@@ -1,7 +1,6 @@
 import natural from 'natural';
 import db from 'diskdb';
 import path from 'path';
-import brain from 'brain';
 
 function ClassifierProvider() {
 
@@ -14,9 +13,9 @@ function ClassifierProvider() {
         pluginActions.push(action);
     }
 
-    let actionDescriptions = [];
-    this.addDescription = (description) => {
-        actionDescriptions.push(description);
+    let pluginDescriptions = [];
+    this.addPluginDescription = (description) => {
+        pluginDescriptions.push(description);
     }
 
     class Classifier {
@@ -64,28 +63,32 @@ function ClassifierProvider() {
             return false;
         }
 
-        addPluginsActions() {
-            console.log('ACTIONS', pluginActions);
+        mergeActions() {
+            console.log('Plugin actions', pluginActions);
             this.actions = this.actions.concat(pluginActions);
-            console.log('HEREEEE222', this.actions);
+            console.log('Merged actions', this.actions);
             this.actions.forEach(action => this.classifier.addDocument(action.text, action.type));
             this.classifier.train();
         }
 
-        addDescriptions() {
-            this.descriptions = this.descriptions.concat(actionDescriptions);
+        mergeDescriptions() {
+            this.descriptions = this.descriptions.concat(pluginDescriptions);
         }
 
-        trainClassifier(action) {
+        trainAction(action) {
             this.actions.push(action);
             this.classifier.addDocument(action.text, action.type);
             this.classifier.train();
         }
 
+        addPluginDescription(description) {
+            this.descriptions.push(description);
+        }
+
         setup() {
             db.connect(path.join(__dirname, '/db-data'), ['actions', 'descriptions']);
             this.actions = db.actions.find();
-            console.log('HEREEEE', this.actions);
+            console.log('base actions', this.actions);
             this.descriptions = db.descriptions.find();
         }
     }

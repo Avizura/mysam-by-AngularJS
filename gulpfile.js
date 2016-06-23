@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var babel = require("gulp-babel");
 var runElectron = require("gulp-run-electron");
 var gulpSequence = require('gulp-sequence');
+var path = require('path');
 
 gulp.task('built', ['html'], function() {
     return gulp.src("src/**/*.js")
@@ -21,13 +22,15 @@ gulp.task('js', function() {
 });
 
 gulp.task('jsx', function() {
-  return gulp.src("node_modules/dist/*.js")
+  return gulp.src("node_modules/dist/**/*.js")
     .pipe(babel())
-    .pipe(gulp.dest("node_modules/jarvis-weather"));
+    .pipe(gulp.dest("dist/node_modules/jarvis-weather"));
 });
+var appPath = path.join(__dirname, 'dist');
 
 gulp.task('run', function() {
-  return gulp.src("")
+  console.log(appPath);
+  return gulp.src(appPath)
     .pipe(runElectron());
 });
 
@@ -40,6 +43,6 @@ gulp.task('html-run', function(callback) {
 });
 
 gulp.task('watch', function() {
-  gulp.watch("src/**/*.html", ['html-run']);
-  gulp.watch("src/**/*.js", ['js-run']);
+  gulp.watch("src/**/*.html", ['html']);
+  gulp.watch("src/**/*.js", ['js']);
 });

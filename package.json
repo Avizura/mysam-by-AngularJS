@@ -35,17 +35,6 @@
     "gulp-sequence": "^0.4.5"
   },
   "dependencies": {
-    "brain": "^0.7.0",
-    "diskdb": "^0.1.14",
-    "jarvis-test-plugin": "^1.0.0",
-    "jarvis-weather": "^1.0.1",
-    "lodash": "^4.11.2",
-    "mysam-space": "0.0.19",
-    "mysam-weather": "^0.1.1",
-    "natural": "^0.4.0",
-    "natural-brain": "^0.2.0",
-    "pos": "^0.3.0",
-    "q": "^1.4.1",
-    "speechkitt": "^0.3.0"
+    "mysam-space": "0.0.19"
   }
 }

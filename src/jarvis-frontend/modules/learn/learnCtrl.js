@@ -19,19 +19,15 @@ class Learn {
         this.selectedAction = this.actions[0];
         this.$scope = $scope;
 
-        $scope.keyPressed = 'no press :(';
-
-        // For listening to a keypress event with a specific code
+        // For listening to a keypress event ctrl+enter
         $scope.$on('keypress:13', (onEvent, keypressEvent) => {
-            this.learn();
+            if(keypressEvent.ctrlKey)
+                this.learn();
         });
-        $scope.$on('keypress:32', (onEvent, keypressEvent) => {
-            $scope.main.toggle();
-        });
+
     }
 
     select(item) {
-        console.log(item);
         item.selected = !item.selected;
     }
 
@@ -55,8 +51,7 @@ class Learn {
             type: this.selectedAction.type,
             tags: tags
         };
-        console.log(action);
-        this.Classifier.trainClassifier(action);
+        this.Classifier.trainAction(action);
         db.connect(path.join(__dirname, '/db-data'), ['actions']);
         db.actions.save(action);
         this.$scope.main.runAction(this.input);

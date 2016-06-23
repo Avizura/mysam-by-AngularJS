@@ -1,11 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8">
+
+<head>
+    <meta charset="utf-8" />
+    <!-- <link rel="apple-touch-icon" sizes="76x76" href="jarvis-frontend/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="jarvis-frontend/assets/img/favicon.png">
+    <link rel="stylesheet" type="text/css" href="jarvis-frontend/styles/weather-icons.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> -->
+
     <title>Jarvis</title>
-    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
-  </head>
-  <body ng-app="Jarvis" ui-router-styles keyboard-events>
+
+    <!-- <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' /> -->
+
+    <!--     Fonts and icons     -->
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" /> -->
+
+    <!-- CSS Files -->
+    <link href="jarvis-frontend/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- <link href="jarvis-frontend/assets/css/material-kit.css" rel="stylesheet" /> -->
+
+</head>
+
+<body ng-app="Jarvis" ui-router-styles keyboard-events>
+    <!-- <nav class="navbar navbar-transparent navbar-absolute">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="navigation-example">
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li>
+                        <a href="https://twitter.com/CreativeTim" target="_blank" class="btn btn-simple">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.facebook.com/CreativeTim" target="_blank" class="btn btn-simple">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/CreativeTimOfficial" target="_blank" class="btn btn-simple">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div style="text-align: center;">
+                <h1><i class="wi wi-owm-day-803"></i>29&deg;C</h1>
+                <div style="font-size: 16px;">
+                    <span>Лондон</span>
+                    <span style="margin-left: 10px;">Облачно</span>
+                    <span style="margin-left: 10px;">Скорость ветра: 4 м/сек</span>
+                </div>
+            </div>
+            <div id="div_language" style="text-align: center; margin-top: 350px;">
+                <select id="select_language" onchange="updateCountry()" style="background-color: transparent;">
+                    <option>Русский</option>
+                </select>
+            </div>
+        </div>
+    </nav> -->
     <a ui-sref="main.hi">Hi</a>
     <a ui-sref="main.repeat">Repeat</a>
     <a ui-sref="main.help">Help</a>
@@ -15,53 +70,75 @@
     <a ui-sref="main.youtube">YouTube</a>
     <div ui-view></div>
 
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
-    <script>
-        // Init the browser's own Speech Recognition
-        var recognition = new webkitSpeechRecognition();
+    <!-- <div class="wrapper">
+        <div class="header header-filter" style="background-image: url('jarvis-frontend/assets/img/city.jpg'); background-size: cover; background-position: top center; display: flex; justify-content: flex-start;">
+            <div style="transform: translate(40%, 150%); position: absolute;"> -->
+    <!-- <div><span>Привет Михаил! Вот что я умею делать:</span></div>
+                <div>
+                    <ul style="list-style: none;
+">
+                        <li>Сказать привет</li>
+                        <li>Рассказать о погоде</li>
+                        <li>Найти видео на YouTube</li>
+                        <li>Включить музыку</li>
+                    </ul>
+                </div> -->
+    <!-- <h1><i class="wi wi-owm-day-803"></i>29&deg;C</h1>
+                <div>
+                  <span>Лондон</span>
+                  <span>Облачно</span>
+                  <span>Скорость ветра: 4 м/сек </span>
+                </div> -->
+    <!-- </div>
+            <div style="transform: translate(0%, 137%); margin: auto; text-align: center;">
+                <a href="https://www.instagram.com/CreativeTimOfficial" target="_blank" class="btn btn-simple" style="font-size: 50px; margin-bottom: -10px; ">
+                    <i class="fa fa-microphone-slash fa-inverse" aria-hidden="true" style="color: #2AA3FF;"></i>
+                </a>
+                <div>
+                    <input type="text" value="" placeholder="Regular" style="
+    width: 600px;
+    border: 5px solid transparent;
+    border-radius: 5px;
+    font-weight: 400;
+    line-height: 1.42857;
+    color: white;
+    font-family: " Roboto ", "Helvetica ", "Arial ", sans-serif;
+"/>
+                </div>
 
-        // Tell KITT the command to use to start listening
-        SpeechKITT.setStartCommand(function() {recognition.start()});
+            </div>
 
-        // Tell KITT the command to use to abort listening
-        SpeechKITT.setAbortCommand(function() {recognition.abort()});
+        </div>
+    </div> -->
 
-        // Register KITT's recognition start event with the browser's Speech Recognition
-        recognition.addEventListener('start', SpeechKITT.onStart);
 
-        // Register KITT's recognition end event with the browser's Speech Recognition
-        recognition.addEventListener('end', SpeechKITT.onEnd);
+</body>
 
-        // Define a stylesheet for KITT to use
-        SpeechKITT.setStylesheet('http://cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/themes/flat.css');
 
-        // Render KITT's interface
-        SpeechKITT.vroom(); // SpeechKITT.render() does the same thing, but isn't as much fun!
-    </script>
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="../bower_components/angular-ui-router-styles/ui-router-styles.js"></script>
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../bower_components/angular-strap/dist/angular-strap.min.js"></script>
+<script src="../bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+<script src="./jarvis-frontend/jarvis.js"></script>
+<script src="./jarvis-frontend/loadPlugins.js"></script>
+<script src="./jarvis-frontend/core/recognizer.js"></script>
+<script src="./jarvis-frontend/core/synthesizer.js"></script>
+<script src="./jarvis-frontend/core/extractor.js"></script>
+<script src="./jarvis-frontend/core/classifier.js"></script>
+<script src="./jarvis-frontend/core/mainCtrl.js"></script>
+<script src="./jarvis-frontend/modules/sayHi/hiCtrl.js"></script>
+<script src="./jarvis-frontend/modules/repeat/repeatCtrl.js"></script>
+<script src="./jarvis-frontend/modules/help/helpCtrl.js"></script>
+<script src="./jarvis-frontend/modules/learn/learnCtrl.js"></script>
+<script src="./jarvis-frontend/modules/learn/learnDirective.js"></script>
+<script src="./jarvis-frontend/modules/youtube/youtubeCtrl.js"></script>
+<script src="./jarvis-frontend/preferences/preferencesCtrl.js"></script>
+<script src="./jarvis-frontend/config.js"></script>
+<script src="./jarvis-frontend/core/keyboardEvents.js"></script>
 
-    <script>require('./jarvis-frontend/menu.js')</script>
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="../bower_components/angular/angular.js"></script>
-    <script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="../bower_components/angular-ui-router-styles/ui-router-styles.js"></script>
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../bower_components/angular-strap/dist/angular-strap.min.js"></script>
-    <script src="../bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
-    <script src="./jarvis-frontend/jarvis.js"></script>
-    <script src="./jarvis-frontend/loadPlugins.js"></script>
-    <script src="./jarvis-frontend/core/recognizer.js"></script>
-    <script src="./jarvis-frontend/core/extractor.js"></script>
-    <script src="./jarvis-frontend/core/classifier.js"></script>
-    <script src="./jarvis-frontend/core/mainCtrl.js"></script>
-    <script src="./jarvis-frontend/modules/sayHi/hiCtrl.js"></script>
-    <script src="./jarvis-frontend/modules/repeat/repeatCtrl.js"></script>
-    <script src="./jarvis-frontend/modules/help/helpCtrl.js"></script>
-    <script src="./jarvis-frontend/modules/learn/learnCtrl.js"></script>
-    <script src="./jarvis-frontend/modules/learn/learnDirective.js"></script>
-    <script src="./jarvis-frontend/modules/youtube/youtubeCtrl.js"></script>
-    <script src="./jarvis-frontend/preferences/preferencesCtrl.js"></script>
-    <script src="./jarvis-frontend/config.js"></script>
-    <script src="./jarvis-frontend/core/keyboardEvents.js"></script>
-  </body>
-  </html>
+
+</html>

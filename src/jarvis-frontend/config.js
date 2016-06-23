@@ -33,7 +33,10 @@ class Config {
               controller: 'helpCtrl as ctrl'
           })
           .state('main.youtube', {
-              controller: 'youtubeCtrl as ctrl'
+              controller: 'youtubeCtrl as ctrl',
+              params: {
+                extracted: {}
+              }
           })
           .state('main.learn', {
               templateUrl: './jarvis-frontend/modules/learn/learn.html',
@@ -45,6 +48,9 @@ class Config {
           .state('preferences', {
               templateUrl: './jarvis-frontend/preferences/preferences.html',
               controller: 'preferencesCtrl as prefs'
+          })
+          .state('auth', {
+              templateUrl: './jarvis-frontend/auth/auth.html'
           });
     }
 }

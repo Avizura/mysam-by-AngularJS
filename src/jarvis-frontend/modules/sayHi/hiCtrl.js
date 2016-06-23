@@ -1,5 +1,5 @@
 angular.module('Jarvis')
-  .controller('hiCtrl', ($scope, $stateParams) => {
-    $scope.action = $stateParams["extracted"]["subject"];
-    console.log($scope.action);
+  .controller('hiCtrl', ($scope, $stateParams, Synthesizer) => {
+      $scope.action = $stateParams["extracted"]["subject"];
+      Synthesizer.speak(`Welcome ${$scope.action}`, 'en-US');
   });

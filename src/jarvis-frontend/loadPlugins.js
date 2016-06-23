@@ -1,41 +1,78 @@
 import { exec } from 'child_process';
 import path from 'path';
 import Q from 'q';
+import remote from 'remote';
+const Menu = remote.require('menu');
 
 let ready;
 
 angular.module('Jarvis')
-    .config(($stateProvider, $controllerProvider, ClassifierProvider) => {
+    .config(($stateProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, ClassifierProvider) => {
+        try {
+            ready = Q.nfcall(exec, 'npm ls --depth=0 --parseable')
+                .then((response) => {
+                    console.log(response);
+                    let modules = response.toString().trim().split('\n');
+                    modules.forEach(loadModule.bind(this));
+                });
+        } catch(e) {
+            console.log(e);
+        }
 
-        ready = Q.nfcall(exec, 'npm ls --depth=0 --parseable')
-            .then((response) => {
-                let modules = response.toString().trim().split('\n');
-                modules.forEach(loadModule.bind(this));
-            });
-
-
-        function loadModule(module) {
+        function loadModule(modulePath) {
             try {
-                let pkgPath = require.resolve(path.join(module, 'package.json'));
+                let pkgPath = require.resolve(path.join(modulePath, 'package.json'));
                 let pkg = require(pkgPath);
                 let config = pkg.jarvis;
                 if (!config) {
-                    // throw new Error(`${module} is not a Jarvis plugin.`);
+                    // throw new Error(`${modulePath} is not a Jarvis plugin.`);
                     return;
                 }
                 console.log(`Found plugin ${pkg.name}`);
-                let dirname = path.dirname(pkgPath);
+
                 let pluginName = config.name;
-                let pluginTemplate = path.join(dirname, config.template || '');
-                let pluginController = require(module);
-                console.log('PluginController: ', pluginController);
-                let serverPath = path.join(dirname, config.server);
-                let server = require(serverPath);
-                let styles = path.join(dirname, config.styles);
-                console.log(styles);
-                server.actions.forEach((action) => ClassifierProvider.addPluginAction(action));
-                ClassifierProvider.addDescription(server.description);
-                $controllerProvider.register(`${pluginName}Ctrl`, pluginController);
+
+                if(pkg.main) {
+                    let pluginController = require(modulePath);
+                    $controllerProvider.register(`${pluginName}Ctrl`, pluginController);
+                }
+
+                if(config.server) {
+                    let serverPath = path.join(modulePath, config.server);
+                    let server = require(serverPath);
+                    //Learning
+                    server.actions.forEach((action) => ClassifierProvider.addPluginAction(action));
+                    ClassifierProvider.addPluginDescription(server.description);
+                } else {
+                  throw new Error(`Server file in plugin ${pluginName} doesnt exist!`);
+                }
+
+                if(config.template) {
+                    var pluginTemplate = path.join(modulePath, config.template);
+                }
+
+                if(config.styles) {
+                    var styles = config.styles.map((stylePath) => path.join(modulePath, stylePath));
+                }
+
+                if(config.directives) {
+                    let directivesPath = config.directives.map((directivePath) => path.join(modulePath, directivePath));
+                    let directives = directivesPath.map((directivePath) => require(directivePath));
+                    directives.forEach((directive) => $compileProvider.directive(directive.name, directive.fn));
+                }
+
+                if(config.filters) {
+                    let filtersPath = config.filters.map((filterPath) => path.join(modulePath, filterPath));
+                    let filters = filtersPath.map((filterPath) => require(filterPath));
+                    filters.forEach((filter) => $filterProvider.register(filter.name, filter.fn))
+                }
+
+                if(config.services) {
+                    let servicesPath = config.services.map((servicePath) => path.join(modulePath, servicePath));
+                    let services = servicesPath.map((servicePath) => require(servicePath));
+                    services.forEach((service) => $provide.service(service.name, service.fn));
+                }
+
                 $stateProvider
                     .state(`main.${pluginName}`, {
                         controller: `${pluginName}Ctrl as ctrl`,
@@ -57,9 +94,8 @@ angular.module('Jarvis')
             event.preventDefault();
             ready.then(() => {
                 off();
-                Classifier.addPluginsActions();
-                Classifier.addDescriptions();
-                // Classifier.classify('What is the weather  in London');
+                Classifier.mergeActions();
+                Classifier.mergeDescriptions();
                 $state.go(toState.name, toParams);
             });
         });
