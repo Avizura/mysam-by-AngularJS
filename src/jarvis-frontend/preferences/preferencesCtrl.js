@@ -3,16 +3,17 @@ import path from 'path';
 import Q from 'q';
 
 class Preferences {
-
-    constructor($scope, $http, Classifier) {
+    constructor($scope, $http, $state, Classifier) {
         this.$scope = $scope;
         this.$http = $http;
+        this.$stateProvider = $state;
         this.Classifier = Classifier;
         Q.all([this.getInstalledModules(), this.getAvailableModules()])
             .then((response) => {
                 this.plugins.forEach(this.moduleIsInstalled.bind(this));
                 this.$scope.$apply();
             });
+        this.checkForUpdates();
     }
 
     getInstalledModules() {
@@ -25,8 +26,58 @@ class Preferences {
     getAvailableModules() {
         return Q(this.$http.get('https://registry.npmjs.org/-/_view/byKeyword?startkey=%5B%22jarvis-plugin%22%5D&endkey=%5B%22jarvis-plugin%22,%7B%7D%5D&group_level=3'))
             .then((response) => {
+                console.log(response.data);
                 this.plugins = response.data.rows;
+                return response;
             });
+    }
+
+    enableModule(moduleName) {
+      let modulePath = path.join(__dirname, 'node_modules', moduleName)
+      this.loadModule(modulePath);
+    }
+
+    disableModule(moduleName) {
+        stateProvider.removeState(moduleName);
+    }
+
+    checkForUpdates() {
+        this.plugins.forEach(module => exec(`npm outdated ${module.key[1]}`, (err, data) => {
+                    if(data) {
+                        let versionInfo = data.split('\n').splice(1, 1).toString().split('  ');
+                        module.curVersion = versionInfo[2];
+                        module.lastVersion = versionInfo[3];
+                        module.canBeUpdated = versionInfo[2] === versionInfo[3] ? false : true;
+                    }
+                }));
+            });
+    }
+
+    checkForUpdate(moduleName) {
+        let module = this.plugins.filter(module => module.key[1] === moduleName);
+        exec(`npm outdated ${module.key[1]}`, (err, data) => {
+            if (data) {
+                let versionInfo = data.split('\n').splice(1, 1).toString().split('  ');
+                module.curVersion = versionInfo[2];
+                module.lastVersion = versionInfo[3];
+                module.canBeUpdated = versionInfo[2] === versionInfo[3] ? false : true;
+            }
+        });
+
+    }
+
+    updateAll() {
+        exec('npm update', (err, data) => {
+
+        });
+    }
+
+    updateModule(moduleName) {
+        exec(`npm update ${moduleName}`, (err, data) => {
+            if(err)
+                console.log(err);
+            this.checkForUpdate(moduleName);
+        });
     }
 
     moduleIsInstalled(module) {
@@ -36,13 +87,9 @@ class Preferences {
 
     installModule(plugin) {
         let moduleName = plugin.key[1];
-        console.log(__dirname);
         exec(`npm install ${moduleName} --save`, (err, data) => {
             console.log(`Plugin ${moduleName} has been installed`);
-            let modulePath = path.join(__dirname, 'node_modules', moduleName)
-            console.log(modulePath);
-            console.log(typeof(modulePath));
-            this.loadModule(modulePath);
+            this.enableModule(moduleName);
         });
     }
 
@@ -128,4 +175,4 @@ class Preferences {
 }
 
 angular.module('Jarvis')
-    .controller('preferencesCtrl', ($scope, $http, Classifier) => new Preferences($scope, $http, Classifier));
+    .controller('preferencesCtrl', Preferences);

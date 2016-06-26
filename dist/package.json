@@ -1,0 +1,39 @@
+{
+  "name": "jarvis",
+  "version": "1.0.0",
+  "description": "Electron voice assistant",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "built": "babel src -d dist"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://Avizura@bitbucket.org/Avizura/speach-app.git"
+  },
+  "keywords": [
+    "Electron",
+    "Voice",
+    "Assistant"
+  ],
+  "author": "michael.dovzhenko@gmail.com",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/Avizura/speach-app#readme",
+  "dependencies": {
+    "brain": "^0.7.0",
+    "diskdb": "^0.1.14",
+    "jarvis-test-plugin": "^1.0.0",
+    "jarvis-weather": "^1.0.5",
+    "lodash": "^4.11.2",
+    "natural": "^0.4.0",
+    "natural-brain": "^0.2.0",
+    "pos": "^0.3.0",
+    "q": "^1.4.1"
+  }
+}

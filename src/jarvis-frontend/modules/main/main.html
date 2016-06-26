@@ -1,0 +1,35 @@
+<div class="main">
+    <div class="collapse navbar-collapse" id="navigation-example">
+        <ul class="nav navbar-nav navbar-right">
+
+            <li>
+                <a ui-sref="main" class="btn btn-simple">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li>
+                <a ui-sref="preferences" class="btn btn-simple">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li>
+                <a ui-sref="main.help" class="btn btn-simple">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div ui-view style="height: 360px; padding: 5px;"></div>
+    <div class="main-controls">
+        <a class="btn btn-simple main-controls__micro" ng-click="main.toggle()">
+            <i class="fa" ng-class="{'fa-microphone': main.recognition, 'fa-microphone-slash': !main.recognition}" aria-hidden="true" style="color: #2AA3FF;"></i>
+        </a>
+        <div class="main-controls__standart">
+            <input type="text" class="main-input" ng-model="main.input" />
+            <!-- <button ng-click="main.runAction()">Go!</button> -->
+        </div>
+        <button type="button" class="btn btn-default" ng-model="main.selectedLang" data-html="1" data-toggle="true" bs-options="lang.value as lang.label for lang in main.langs" placement="top" bs-select>
+            Action <span class="caret"></span>
+        </button>
+    </div>
+</div>

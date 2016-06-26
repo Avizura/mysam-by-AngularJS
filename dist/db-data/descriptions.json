@@ -1,0 +1,5 @@
+[
+  {"type": "hi", "description": "Say hi", "tags": ["subject"]},
+  {"type": "repeat", "description": "Repeat", "tags": ["subject"]},
+  {"type": "help", "description": "Show help", "tags":[]}
+]

@@ -3,11 +3,10 @@ import path from 'path';
 import _ from 'lodash';
 
 class Learn {
-    constructor($scope, $stateParams, Classifier) {
+    constructor($scope, Classifier) {
         this.$scope = $scope;
         this.Classifier = Classifier;
-        this.input = $stateParams["extracted"];
-        this.words = $stateParams["extracted"].split(' ');
+        this.words = $scope.main.input.split(' ');
         this.data = [];
         this.words.forEach((word) => {
             this.data.push({
@@ -21,7 +20,7 @@ class Learn {
 
         // For listening to a keypress event ctrl+enter
         $scope.$on('keypress:13', (onEvent, keypressEvent) => {
-            if(keypressEvent.ctrlKey)
+            // if(keypressEvent.ctrlKey)
                 this.learn();
         });
 
@@ -47,14 +46,15 @@ class Learn {
             })
         });
         let action = {
-            text: this.input,
+            text: this.$scope.main.input,
             type: this.selectedAction.type,
             tags: tags
         };
+        console.log(action);
         this.Classifier.trainAction(action);
         db.connect(path.join(__dirname, '/db-data'), ['actions']);
         db.actions.save(action);
-        this.$scope.main.runAction(this.input);
+        this.$scope.main.runAction();
     }
 
     selectEnd() {

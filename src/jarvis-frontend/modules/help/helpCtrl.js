@@ -1,6 +1,6 @@
 class Help {
     constructor(Classifier) {
-        this.actions = Classifier.descriptions.map((item) => item.description);
+        this.descriptions = Classifier.descriptions.map((item) => item.description);
     }
 }
 

@@ -10,12 +10,14 @@ function ClassifierProvider() {
 
     let pluginActions = [];
     this.addPluginAction = (action) => {
-        pluginActions.push(action);
+        if(action)
+            pluginActions.push(action);
     }
 
     let pluginDescriptions = [];
     this.addPluginDescription = (description) => {
-        pluginDescriptions.push(description);
+        if(description)
+            pluginDescriptions.push(description);
     }
 
     class Classifier {
@@ -49,7 +51,6 @@ function ClassifierProvider() {
                 console.log(extracted);
             } else {
                 actionType = 'learn';
-                extracted = input;
             }
             return {
                 actionType,

@@ -6,13 +6,15 @@ class Config {
     }
 
     setCoreRoutes() {
-      console.log('setting core routes');
       this.$urlRouterProvider.otherwise('/');
       this.$stateProvider
           .state('main', {
               url: '/',
-              templateUrl: './jarvis-frontend/core/main.html',
-              controller: 'mainCtrl as main'
+              templateUrl: './jarvis-frontend/modules/main/main.html',
+              controller: 'mainCtrl as main',
+              data: {
+                'css': './jarvis-frontend/modules/main/main.css'
+              }
           })
           .state('main.hi', {
               templateUrl: './jarvis-frontend/modules/sayHi/hi.html',

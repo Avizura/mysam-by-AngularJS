@@ -55,7 +55,6 @@ class Recognizer {
     }
 
     selectLang(lang) {
-        console.log('selected ' + lang);
         this.recognition.lang = lang;
     }
 
@@ -73,23 +72,13 @@ class Recognizer {
         }
     }
 
-    // toggle() {
-        // this.listening ? this.start() : this.stop();
-    // }
-
     start() {
-        // this.listening = true;
-        // Bus.publish({
-        //     name: 'recognitionOn'
-        // });
+        this.listening = true;
         this.recognition.start();
     }
 
     onEnd() {
-        // this.listening = false;
-        // Bus.publish({
-        //     name: 'recognitionOf'
-        // });
+        this.listening = false;
     }
 
     stop() {

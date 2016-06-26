@@ -1,6 +1,6 @@
 import Bus from './jarvis-frontend/core/bus.js';
 
-class Jarvis {
+class Main {
     constructor($scope, $state, Recognizer, Classifier) {
         this.$scope = $scope;
         this.$state = $state;
@@ -20,7 +20,10 @@ class Jarvis {
             this.runAction(this.input);
         });
         $scope.$on('keypress:32', (onEvent, keypressEvent) => {
-            $scope.main.toggle();
+            if(keypressEvent.ctrlKey) {
+                $scope.main.toggle();
+                this.$scope.$apply();
+            }
         });
 
         Bus.when('transcript')
@@ -28,10 +31,10 @@ class Jarvis {
     }
 
 
-    runAction(input) {
-        if (!input)
+    runAction() {
+        if (!this.input)
             return; //error msg here
-        let classification = this.Classifier.classify(input);
+        let classification = this.Classifier.classify(this.input);
         let actionType = classification.actionType;
         let extracted = classification.extracted;
         console.log(actionType);
@@ -46,8 +49,6 @@ class Jarvis {
 
     toggle() {
         this.recognition = !this.recognition;
-        this.$scope.$apply();
-        console.log(this.recognition);
         if (this.recognition) {
             this.Recognizer.start();
         } else {
@@ -57,4 +58,4 @@ class Jarvis {
 }
 
 angular.module('Jarvis')
-    .controller('mainCtrl', Jarvis);
+    .controller('mainCtrl', Main);
