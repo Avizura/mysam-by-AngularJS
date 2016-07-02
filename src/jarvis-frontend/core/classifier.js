@@ -31,24 +31,19 @@ function ClassifierProvider() {
         }
 
         classify(input) {
-            console.log(this.classifier);
-            console.log(input);
             let classifications = this.classifier.getClassifications(input);
-            console.log('Classifications: ', classifications);
-            let actionType;
+            let actionType = "";
             let extracted = [];
             let inputWords = this.tokenizer.tokenize(input);
 
             if (this.isRecognized(classifications)) {
                 actionType = classifications[0].label;
-                console.log('class: ', actionType);
                 let actions = this.actions.filter((action) => action.type == actionType);
                 actions.forEach((action) => {
                     let exampleWords = this.tokenizer.tokenize(action.text);
                     extracted.push(this.Extractor.extract(exampleWords, action.tags, inputWords));
                 })
                 extracted = extracted.filter(item => !!item)[0];
-                console.log(extracted);
             } else {
                 actionType = 'learn';
             }
@@ -65,9 +60,7 @@ function ClassifierProvider() {
         }
 
         mergeActions() {
-            console.log('Plugin actions', pluginActions);
             this.actions = this.actions.concat(pluginActions);
-            console.log('Merged actions', this.actions);
             this.actions.forEach(action => this.classifier.addDocument(action.text, action.type));
             this.classifier.train();
         }
@@ -89,7 +82,6 @@ function ClassifierProvider() {
         setup() {
             db.connect(path.join(__dirname, '/db-data'), ['actions', 'descriptions']);
             this.actions = db.actions.find();
-            console.log('base actions', this.actions);
             this.descriptions = db.descriptions.find();
         }
     }

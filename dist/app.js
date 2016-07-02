@@ -18,7 +18,7 @@ function createWindow() {
   mainWindow = new _electron.BrowserWindow({ width: 1000, height: 600 });
 
   // and load the index.html of the app.
-  mainWindow.loadURL('file://' + __dirname + '/jarvis/index.html');
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
